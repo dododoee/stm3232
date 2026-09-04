@@ -1,0 +1,30 @@
+@startuml ex
+
+participant main
+participant "func1(int n) : void" as func1
+participant "func2(int n) : int" as func2
+participant "func3(signed int x) : float" as func3
+
+main -> func1 : func1(5)
+activate func1
+
+func1 -> func2 : func2(n)
+activate func2
+
+func2 -> func2 : func2(n-1)\n[재귀 호출]
+activate func2
+func2 --> func2 : return int
+deactivate func2
+
+func2 --> func1 : return int (result)
+deactivate func2
+
+func1 -> func3 : func3(result)
+activate func3
+func3 --> func1 : return float (value)
+deactivate func3
+
+func1 --> main : return (void)
+deactivate func1
+
+@enduml
